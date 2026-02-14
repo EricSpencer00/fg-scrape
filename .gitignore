@@ -1,2 +1,4 @@
 venv
 /gags
+__pycache__
+/data
