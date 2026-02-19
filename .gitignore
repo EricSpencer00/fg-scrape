@@ -2,3 +2,4 @@ venv
 /gags
 __pycache__
 /data
+/gags_backup

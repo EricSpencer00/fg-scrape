@@ -48,32 +48,34 @@ def scrape_season(season_url, season_number, output_dir="gags", scraper=None):
     table = tables[0]
     rows = table.find_all('tr')[1:]  # Skip header row
     
-    # Process rows in pairs (data row + description row)
-    for i in range(0, len(rows), 2):
-        if i + 1 >= len(rows):
-            break
+    # Process rows: each gag has a data row (6 cells) followed by description row (1 cell)
+    # so we iterate through all rows and look for the 6-cell pattern (pure data rows)
+    for i in range(len(rows)):
+        cells = rows[i].find_all('td')
         
-        data_row = rows[i]
-        desc_row = rows[i + 1]
-        cells = data_row.find_all('td')
-        
-        # Skip rows that don't have enough cells
-        if len(cells) < 5:
+        # Data row always has 6 cells: [screenshot, title, episode, owner, order, season]
+        if len(cells) != 6:
             continue
         
         # Extract data (skipping screenshot - index 0)
         try:
-            title = cells[1].get_text(strip=True) if len(cells) > 1 else ""
-            episode = cells[2].get_text(strip=True) if len(cells) > 2 else ""
-            owner = cells[3].get_text(strip=True) if len(cells) > 3 else ""
-            episode_order = cells[4].get_text(strip=True) if len(cells) > 4 else ""
+            title = cells[1].get_text(strip=True)
+            episode = cells[2].get_text(strip=True)
+            owner = cells[3].get_text(strip=True)
+            episode_order = cells[4].get_text(strip=True)
             
-            # Skip if we don't have at least a title
+            # Skip if we don't have at least a title and episode
             if not title or not episode:
                 continue
             
-            # Get description from the next row
-            description = desc_row.get_text(strip=True) if desc_row else ""
+            # Get description from the next row if it exists
+            description = ""
+            if i + 1 < len(rows):
+                next_row = rows[i + 1]
+                desc_cells = next_row.find_all('td')
+                # Description row has 1 cell
+                if len(desc_cells) == 1:
+                    description = desc_cells[0].get_text(strip=True)
             
             gags.append({
                 'title': title,
