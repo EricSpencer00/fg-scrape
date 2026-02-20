@@ -144,7 +144,7 @@ export default function App() {
             <div className="p-2 bg-red-500 rounded-lg group-hover:rotate-12 transition-transform">
               <Database className="w-6 h-6 text-white" />
             </div>
-            <span className="text-xl font-black tracking-tighter uppercase italic">GagArch v1.0</span>
+            <span className="text-xl font-black tracking-tighter uppercase italic">FG Cutaways</span>
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm font-bold text-zinc-400">
             <a href="#dashboard" className="hover:text-white transition-colors">DASHBOARD</a>
@@ -349,7 +349,7 @@ export default function App() {
               <div className="p-2 bg-zinc-900 rounded-lg group-hover:bg-red-500 transition-colors">
                 <Database className="w-5 h-5" />
               </div>
-              <span className="text-lg font-black uppercase italic tracking-tighter">GagArch</span>
+              <span className="text-lg font-black uppercase italic tracking-tighter">FG Cutaways</span>
             </div>
             <p className="text-zinc-400 text-sm max-w-sm">
               The definitive computational archive for FG Cutaways. 
